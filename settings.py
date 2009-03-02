@@ -1,3 +1,5 @@
+import os.path
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
@@ -14,6 +16,15 @@ DATABASE_NAME = ''
 DATABASE_USER = ''
 DATABASE_PASSWORD = ''
 
+BASE_PATH = os.path.abspath(os.path.dirname(__file__))
+BASE_DOMAIN = 'pastethat.com'
+BASE_URL = 'http://www.pastethat.com'
+
+REVISIONS = {
+    'global.js': 1,
+    'global.css': 1,
+}
+
 # http://www.postgresql.org/docs/8.1/static/datetime-keywords.html#DATETIME-TIMEZONE-SET-TABLE
 TIME_ZONE = 'America/Chicago'
 
@@ -25,11 +36,11 @@ SITE_ID = 1
 
 USE_I18N = True
 
-MEDIA_ROOT = '/home/dcramer/pastethat/media'
+MEDIA_ROOT = '%s/media/' % (BASE_PATH,)
 
-MEDIA_URL = 'http://www.pastethat.com/media'
+MEDIA_URL = '%s/media/' % (BASE_URL,)
 
-ADMIN_MEDIA_PREFIX = '/admin/media/'
+ADMIN_MEDIA_PREFIX = '%s/admin/media/' % (BASE_URL,)
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '-!^qh-_7u)_w3aoem&!10a^5r-0*fb6_ic&$wfrebm74os$)9*'
@@ -61,7 +72,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 ROOT_URLCONF = 'pastethat.urls'
 
 TEMPLATE_DIRS = (
-    '/home/dcramer/pastethat/templates',
+    '%s/templates' % (BASE_PATH,),
 )
 
 INSTALLED_APPS = (
@@ -73,14 +84,6 @@ INSTALLED_APPS = (
     'pastethat.utils.template',
 )
 
-BASE_DOMAIN = 'pastethat.com'
-BASE_URL = 'http://www.pastethat.com'
-
-REVISIONS = {
-    'global.js': 1,
-    'global.css': 1,
-}
-
 SESSION_ENGINE = 'django.contrib.sessions.backends.file'
 
 try:
@@ -88,4 +91,4 @@ try:
 except ImportError:
     pass
 
-LOGIN_URL = BASE_URL + '/users/login/'
+LOGIN_URL = BASE_URL + '/account/login/'
