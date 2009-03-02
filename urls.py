@@ -7,3 +7,6 @@ urlpatterns = patterns('',
     (r'^admin/(.*)', admin.site.root),
     (r'', include('pastethat.pastes.urls')),
 )
+
+handler404 = 'jinja.contrib.djangosupport.handler404'
+handler500 = 'jinja.contrib.djangosupport.handler500'
