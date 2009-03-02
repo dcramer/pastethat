@@ -1,0 +1,38 @@
+<div id="header">
+    <h1 title="PasteThat"><a href="{{ url('pastes::new') }}">Paste<span>That</span><small>.com</small></a></h1>
+    <h2>Share code, files, images, and links.</h2>
+    {% if paste %}
+        {% set share_url = paste.get_absolute_url()|urlencode %}
+        {% set share_title = paste.get_name()|urlencode %}
+    {% else %}
+        {% set share_url = url('pastes::new')|urlencode %}
+        {% set share_title = 'PasteThat' %}
+    {% endif %}
+    <div id="login"></div>
+    <ul id="share-buttons">
+        <li class="share-delicious"><a href="https://secure.del.icio.us/login?url={{ share_url }}&amp;title={{ share_title }}&amp;notes={{ share_title }}&amp;jump=close">Delicious</a></li>
+        <li class="share-reddit"><a href="http://reddit.com/submit?url={{ share_url }}&amp;title={{ share_title }}">Reddit</a></li>
+        <li class="share-yahoo"><a href="https://login.yahoo.com/config/login?.src=bmk2&amp;.intl=us&amp;.done=http%3A%2F%2Fbeta.bookmarks.yahoo.com%2Ftoolbar%2Fsavebm%3Ft%3D{{ share_title }}%26amp%3Bu%3D{{ share_url }}%26amp%3Bopener%3Dbm%26amp%3Bei%3DUTF-8">Yahoo!</a></li>
+        <li class="share-google"><a href="http://www.google.com/bookmarks/mark?op=add&amp;hl=en&amp;zx=jpax8UpAb80&amp;title={{ share_title }}&amp;bkmk={{ share_url }}">Google</a></li>
+        <li class="share-stumbleupon"><a href="http://www.stumbleupon.com/submit?url={{ share_url }}&amp;title={{ share_title }}">StumbleUpon</a></li>
+        <li class="share-digg"><a href="http://digg.com/submit/?url={{ share_url }}">Digg</a></li>
+        <li class="share-furl"><a href="http://www.furl.net/storeIt.jsp?t={{ share_title }}&amp;u={{ share_url }}&amp;c={{ share_title }}">Furl</a></li>
+    </ul>
+</div>
+<div id="nav">
+    <ul>
+        <li class="new-paste{% if PAGE == 'new' %} active{% endif %}"><a href="{{ url('pastes::new') }}">New</a></li>
+        {% if paste %}
+        <li class="view-paste{% if PAGE == 'view' %} active{% endif %}"><a href="{{ paste.get_absolute_url() }}">{{ paste.get_name()|truncate(25)|escape }}</a></li>
+        <li class="followup-paste{% if PAGE == 'followup' %} active{% endif %}"><a href="{{ url('pastes::followup', paste.id) }}">Post Follow-up</a></li>
+        {% if paste.children %}
+        <li class="view-followups{% if PAGE == 'children' %} active{% endif %}"><a href="{{ url('pastes::children', paste.id) }}">View Follow-ups ({{ paste.children|intcomma }})</a></li>
+        {% endif %}
+        {% if paste.type != PASTE_TYPE_LINK %}
+        <li class="download-paste right"><a href="{{ url('pastes::download', paste.id) }}" onclick="window.open(this.href,'','scrollbars=yes,menubar=no,height=400,width=600,resizable=yes,toolbar=no,location=no,status=no'); return false">Download</a></li>
+        {% endif %}
+        {% elif PAGE != 'new' and TITLE %} ?>
+            <li class="view-special active"><a href="{{ request.get_full_path() }}">{{ TITLE|truncate(25)|escape }}</a></li>
+        {% endif %}
+    </ul>
+</div>

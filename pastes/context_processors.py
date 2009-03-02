@@ -1,0 +1,9 @@
+from models import PASTE_TYPE_TEXT, PASTE_TYPE_FILE, PASTE_TYPE_LINK, PASTE_TYPE_IMAGE
+
+def default(request):
+    return {
+        'PASTE_TYPE_TEXT': PASTE_TYPE_TEXT,
+        'PASTE_TYPE_FILE': PASTE_TYPE_FILE,
+        'PASTE_TYPE_LINK': PASTE_TYPE_LINK,
+        'PASTE_TYPE_IMAGE': PASTE_TYPE_IMAGE,
+    }

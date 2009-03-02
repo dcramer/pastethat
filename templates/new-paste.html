@@ -1,0 +1,46 @@
+{% extends "bone/bone.html" %}
+
+{% block content %}
+<div class="title">
+    <h2>{{ title|escape }}</h2>
+</div>
+<ul class="tabSet" id="form_tabs">
+    <li{% if text_form.is_active %} class="active"{% endif %} container="text" onclick="tab(event, this)"><a href="#text">Text</a></li>
+    <li{% if file_form.is_active %} class="active"{% endif %} container="file" onclick="tab(event, this)"><a href="#file">File / Image</a></li>
+    <li{% if link_form.is_active %} class="active"{% endif %} container="link" onclick="tab(event, this)"><a href="#link">Link</a></li>
+</ul>
+
+<!-- TEXT FORM -->
+
+<form method="post" action="{{ form_url }}" class="box" id="tab_text"{% if not text_form.is_active %} style="display: none;{% endif %}">
+    <input type="hidden" name="type" value="{{ PASTE_TYPE_TEXT }}" />
+    {{ text_form|render_form(('syntax', 'text', 'title', 'slug', 'public')) }}
+    <div id="share_group_1" class="share-group">
+        {{ text_form|render_form(('tags'))}}
+    </div>
+    <script type="text/javascript">if (!getEl('id_text-public').checked)getEl('share_group_1').style.display='none';getEl('id_text-public').onclick=function(){getEl('share_group_1').style.display=(this.checked?'block':'none');};</script>
+    <div class="formRow fInputSubmitRow"><input type="submit" value="Submit"/></div>
+</form>
+
+<!-- FILE UPLOAD FORM -->
+<form method="post" action="{{ form_url }}" class="box" id="tab_file" enctype="multipart/form-data"{% if not file_form.is_active %} style="display: none;{% endif %}">
+    <input type="hidden" name="type" value="{{ PASTE_TYPE_FILE }}" />
+    {{ file_form|render_form(('file', 'slug', 'public')) }}
+    <div id="share_group_2" class="share-group">
+        {{ text_form|render_form(('tags'))}}
+    </div>
+    <script type="text/javascript">if (!getEl('id_file-public').checked)getEl('share_group_2').style.display='none';getEl('id_file-public').onclick=function(){getEl('share_group_2').style.display=(this.checked?'block':'none');};</script>
+    <div class="formRow fInputSubmitRow"><input type="submit" value="Submit"/></div>
+</form>
+
+<!-- LINK FORM -->
+<form method="post" action="{{ form_url }}" class="box" id="tab_link"{% if not link_form.is_active %} style="display: none;{% endif %}">
+    <input type="hidden" name="type" value="{{ PASTE_TYPE_LINK }}" />
+    {{ link_form|render_form(('text', 'slug', 'public')) }}
+    <div id="share_group_3" class="share-group">
+        {{ text_form|render_form(('tags')) }}
+    </div>
+    <script type="text/javascript">if (!getEl('id_link-public').checked)getEl('share_group_3').style.display='none';getEl('id_link-public').onclick=function(){getEl('share_group_3').style.display=(this.checked?'block':'none');};</script>
+    <div class="formRow fInputSubmitRow"><input type="submit" value="Submit"/></div>
+</form>
+{% endblock %}

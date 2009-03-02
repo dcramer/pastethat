@@ -1,0 +1,470 @@
+[
+    {
+        "pk": 55, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "actionscript", 
+            "name": "ActionScript", 
+            "parent": null, 
+            "lexer": "ActionScriptLexer", 
+            "children": 1, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "bash", 
+            "name": "Bash", 
+            "parent": null, 
+            "lexer": "BashLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "brainfuck", 
+            "name": "Brainfuck", 
+            "parent": null, 
+            "lexer": "BrainfuckLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 38, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "c", 
+            "name": "C", 
+            "parent": null, 
+            "lexer": "CLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 104, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "csharp", 
+            "name": "C#", 
+            "parent": null, 
+            "lexer": "CSharpLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 31, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "cpp", 
+            "name": "C++", 
+            "parent": null, 
+            "lexer": "CppLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 23, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "css", 
+            "name": "CSS", 
+            "parent": null, 
+            "lexer": "CssLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 71, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "diff", 
+            "name": "Diff", 
+            "parent": null, 
+            "lexer": "DiffLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 15, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "django", 
+            "name": "Django/Jinja", 
+            "parent": null, 
+            "lexer": "DjangoLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 60, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "erb", 
+            "name": "ERB", 
+            "parent": null, 
+            "lexer": "ErbLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 92, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "erlang", 
+            "name": "Erlang", 
+            "parent": null, 
+            "lexer": "ErlangLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 40, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "genshi", 
+            "name": "Genshi", 
+            "parent": null, 
+            "lexer": "GenshiLexer", 
+            "children": 1, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 32, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "gettext", 
+            "name": "Gettext Catalog", 
+            "parent": null, 
+            "lexer": "GettextLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 39, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "html", 
+            "name": "HTML", 
+            "parent": null, 
+            "lexer": "HtmlLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 99, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "ini", 
+            "name": "INI", 
+            "parent": null, 
+            "lexer": "IniLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 18, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "java", 
+            "name": "Java", 
+            "parent": null, 
+            "lexer": "JavaLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 112, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "javascript", 
+            "name": "JavaScript", 
+            "parent": null, 
+            "lexer": "JavascriptLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 79, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "lua", 
+            "name": "Lua", 
+            "parent": null, 
+            "lexer": "LuaLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 42, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "mako", 
+            "name": "Mako", 
+            "parent": null, 
+            "lexer": "MakoLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 95, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "myghty", 
+            "name": "Myghty", 
+            "parent": null, 
+            "lexer": "MyghtyLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 30, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "mysql", 
+            "name": "MySQL", 
+            "parent": null, 
+            "lexer": "MySqlLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 111, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "objectivec", 
+            "name": "Objective-C", 
+            "parent": null, 
+            "lexer": "ObjectiveCLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 98, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "perl", 
+            "name": "Perl", 
+            "parent": null, 
+            "lexer": "PerlLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 117, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "php", 
+            "name": "PHP", 
+            "parent": null, 
+            "lexer": "PhpLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 63, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "plaintext", 
+            "name": "Plaintext", 
+            "parent": null, 
+            "lexer": "TextLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 44, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "python", 
+            "name": "Python", 
+            "parent": null, 
+            "lexer": "PythonLexer", 
+            "children": 2, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 62, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "ruby", 
+            "name": "Ruby", 
+            "parent": null, 
+            "lexer": "RubyLexer", 
+            "children": 1, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 13, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "smarty", 
+            "name": "Smarty", 
+            "parent": null, 
+            "lexer": "SmartyLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 119, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "sql", 
+            "name": "SQL", 
+            "parent": null, 
+            "lexer": "SqlLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 56, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "vbnet", 
+            "name": "VB.net", 
+            "parent": null, 
+            "lexer": "VbNetLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 81, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "xml", 
+            "name": "XML", 
+            "parent": null, 
+            "lexer": "XmlLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 51, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "xslt", 
+            "name": "XSLT", 
+            "parent": null, 
+            "lexer": "XsltLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 84, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "genshitext", 
+            "name": "Genshi Text", 
+            "parent": 40, 
+            "lexer": "GenshiTextLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 85, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "python3", 
+            "name": "Python 3", 
+            "parent": 44, 
+            "lexer": "Python3Lexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 88, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "pythonconsole", 
+            "name": "Python console session", 
+            "parent": 44, 
+            "lexer": "PythonConsoleLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 116, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "pythontraceback", 
+            "name": "Python Traceback", 
+            "parent": 44, 
+            "lexer": "PythonTracebackLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 114, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "actionscript3", 
+            "name": "ActionScript 3", 
+            "parent": 55, 
+            "lexer": "ActionScript3Lexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 101, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "rhtml", 
+            "name": "RHTML", 
+            "parent": 62, 
+            "lexer": "RhtmlLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+    {
+        "pk": 22, 
+        "model": "pastes.syntax", 
+        "fields": {
+            "slug": "rubyirb", 
+            "name": "Ruby irb session", 
+            "parent": 62, 
+            "lexer": "RubyConsoleLexer", 
+            "children": 0, 
+            "order": 10
+        }
+    }, 
+]
