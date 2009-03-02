@@ -4,7 +4,7 @@ from models import Group
 
 class GroupProcessorMiddleware(object):
     def process_request(self, request):
-        settings.GROUP_DOMAIN = request.META['HTTP_HOST'].replace(settings.BASE_DOMAIN, '')
+        settings.GROUP_DOMAIN = request.META['HTTP_HOST'].replace('.' + settings.BASE_DOMAIN, '')
         if settings.BASE_DOMAIN:
             settings.BASE_URL = 'http://%s.%s' % (settings.GROUP_DOMAIN, settings.BASE_DOMAIN)
         else: # this makes local work
