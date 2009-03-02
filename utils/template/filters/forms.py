@@ -5,16 +5,6 @@ from django.utils.safestring import mark_safe
 from jinja.contrib.djangosupport import register
 
 def render_form(include_fields=None, exclude_fields=None, ordering=None):
-    """
-    Renders a form using easily stylable, valid XHTML.
-    
-    Can accept inclusion fields, exclusion fields, and field ordering arguments.
-    
-    <code>
-    {{ myform|render_form(('my', 'fields', 'to', 'include')) }}
-    </code>
-    """
-    kwargs = dict(include_fields=include_fields, exclude_fields=exclude_fields, ordering=ordering)
     def wrapped(env, context, form):
         normal_row = u'<div id="%(row_id)s" class="formRow %(class_names)s">%(label)s %(field)s%(help_text_wrapped)s%(errors)s</div>'        
         inline_row = u'<div class="formRow %(class_names)s"><label>%(field)s %(help_text)s</label>%(errors)s</div>'
@@ -24,22 +14,18 @@ def render_form(include_fields=None, exclude_fields=None, ordering=None):
 
         top_errors = form.non_field_errors() # Errors that should be displayed above all fields.
         output, hidden_fields = [], []
-        if kwargs['include_fields']:
+        if include_fields:
             if exclude_fields:
-                _fields = ((name, field) for name, field in form.fields.iteritems() if name in kwargs['include_fields'] and name not in kwargs['exclude_fields'])
+                _fields = ((name, field) for name, field in form.fields.iteritems() if name in include_fields and name not in exclude_fields)
             else:
-                _fields = ((name, field) for name, field in form.fields.iteritems() if name in kwargs['include_fields'])
-        elif kwargs['exclude_fields']:
-            _fields = ((name, field) for name, field in form.fields.iteritems() if name not in kwargs['exclude_fields'])
+                _fields = ((name, field) for name, field in form.fields.iteritems() if name in include_fields)
+        elif exclude_fields:
+            _fields = ((name, field) for name, field in form.fields.iteritems() if name not in exclude_fields)
         else:
             _fields = form.fields.iteritems()
-        # Set ordering to include fields if it doesn't exist.
-        if not kwargs['ordering'] and include_fields:
-            kwargs['ordering'] = include_fields
-        if kwargs['ordering']:
+        if ordering:
             _fields = tuple(_fields)
-            _fields_dict = dict(_fields)
-            _fields = ((f, _fields_dict[f]) for f in kwargs['ordering'] if f in _fields_dict)
+            _fields = (f for f in ordering if f in _fields)
         for name, field in _fields:
             bf = BoundField(form, field, name)
             bf_errors = form.error_class([escape(error) for error in bf.errors]) # Escape and cache in local variable.
