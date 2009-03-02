@@ -1,9 +1,8 @@
 from django.forms.forms import BoundField
 from django.template.defaultfilters import escape
-from django.conf import settings
 from django.utils.encoding import force_unicode
 from django.utils.safestring import mark_safe
-from jinja.contrib.djangosupport import register, convert_django_filter
+from jinja.contrib.djangosupport import register
 
 def render_form(include_fields=None, exclude_fields=None, ordering=None):
     """
@@ -97,13 +96,3 @@ def render_form(include_fields=None, exclude_fields=None, ordering=None):
         return mark_safe(u'\n'.join(output))
     return wrapped
 register.filter(render_form, 'render_form')
-
-from django.contrib.humanize.templatetags.humanize import intcomma, intword
-from django.template.defaultfilters import filesizeformat, date
-register.filter(convert_django_filter(filesizeformat), 'filesizeformat')
-register.filter(convert_django_filter(date), 'date')
-register.filter(convert_django_filter(intcomma), 'intcomma')
-register.filter(convert_django_filter(intword), 'intword')
-
-from pastethat.utils import url
-register.object(url)
