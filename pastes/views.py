@@ -151,7 +151,7 @@ def new_paste(request, id=None):
         'parent': parent,
         'public': True,
         'paste': paste,
-        'syntax': syntax,
+        'syntax': syntax.id,
     }
 
     if text_form is None:
