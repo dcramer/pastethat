@@ -19,7 +19,7 @@ try: import cStringIO as StringIO
 except ImportError: import StringIO
 #import stat
 
-IMAGE_TYPES = re.compile('(:?jpg|png|gif|jpeg)$')
+IMAGE_TYPES = re.compile('(:?jpg|png|gif|jpeg)$', re.I)
 
 def index(request):
     return new_paste(request)
