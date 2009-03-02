@@ -140,10 +140,18 @@ def new_paste(request, id=None):
             new_paste.save()
             return HttpResponseRedirect(new_paste.get_absolute_url())
 
+    if parent:
+        syntax = parent.syntax
+    elif paste:
+        syntax = paste.syntax
+    else:
+        syntax = request.group.default_syntax
+
     initial = {
         'parent': parent,
         'public': True,
         'paste': paste,
+        'syntax': syntax,
     }
 
     if text_form is None:
