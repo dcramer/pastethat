@@ -1,2 +1,4 @@
 *.pyc
 local_settings.py
+media/thumnbnails/*
+media/files/*
