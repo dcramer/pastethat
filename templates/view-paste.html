@@ -59,8 +59,8 @@
     <img src="{{ paste.file.url }}" alt="preview" style="max-width: 99%;" />
     <div class="share" id="share">
         <h5>Share this Image</h5>
-        <div class="shareRow"><label for="id_share_url">URL</label><input type="text" id="id_share_url" onfocus="this.select();" class="text" value="{{ url('pastes::download', paste.id) }}" /></div>
-        <div class="shareRow"><label for="id_share_thumbnail">Thumbnail</label><input type="text" id="id_share_thumbnail" onfocus="this.select();" class="text" value="{{ url('pastes::thumbnail', paste.id) }}" /></div>
+        <div class="shareRow"><label for="id_share_url">URL</label><input type="text" id="id_share_url" onfocus="this.select();" class="text" value="{{ request.build_absolute_uri(url('pastes::download', paste.id)) }}" /></div>
+        <div class="shareRow"><label for="id_share_thumbnail">Thumbnail</label><input type="text" id="id_share_thumbnail" onfocus="this.select();" class="text" value="{{ request.build_absolute_uri(url('pastes::thumbnail', paste.id)) }}" /></div>
     </div>
 {% endif %}
 {% endblock %}
