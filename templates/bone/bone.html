@@ -1,8 +1,10 @@
+{% set IGB = request.META['HTTP_USER_AGENT'].startswith('EVE-minibrowser/') %}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <title>PasteThat</title>
+    {% if not IGB %}
     <script type="text/javascript">
     var o = 52; var getEl = function(obj) { return document.getElementById(obj); };
     function fix()
@@ -34,6 +36,7 @@
     </script>
     <script type="text/javascript" src="{{ BASE_URL }}js/user.js"></script>
     <link rel="stylesheet" href="{{ MEDIA_URL }}styles/global.css?{{ REVISIONS['global.css'] }}" type="text/css" media="all">
+    {% endif %}
     {% block header %}{% endblock %}
 </head>
 <body>
