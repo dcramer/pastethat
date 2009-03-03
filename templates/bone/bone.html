@@ -41,11 +41,15 @@
 </head>
 <body>
     <div id="container">
-        {% include "bone/header.html" %}
+        {% if not IGB %}
+            {% include "bone/header.html" %}
+        {% endif %}
         <div id="content">
             {% block content %}{% endblock %}
         </div>
-        {% include "bone/footer.html" %}
+        {% if not IGB %}
+            {% include "bone/footer.html" %}
+        {% endif %}
     </div>
 </body>
 </html>
