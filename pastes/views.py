@@ -196,7 +196,9 @@ def download_paste(request, id):
         response['Content-Type'] = 'text/plain'
         return response
 
-    f = open(paste.file.path, 'b')
+    return HttpResponseRedirect(paste.file.url)
+
+    f = open(paste.file.path)
     response = HttpResponse(f)
     response['Content-Disposition'] = 'attachment; filename="%s"' % (paste.get_file_basename())
     return response
