@@ -37,7 +37,7 @@
 {% elif paste.type == PASTE_TYPE_LINK %}
     <p>The URL <code>{{ paste.get_absolute_url()|escape }}</code> redirects to:</p>
     <p style="margin-left:50px; font-weight: bold;"><code>{{ paste.text|escape }}</code></p>
-    <p><a href="{{ paste.get_absolute_url()|escape }}">Proceed to this site.</a></p>
+    <p><a href="{{ paste.text|escape }}">Proceed to this site.</a></p>
 {% elif paste.type == PASTE_TYPE_FILE %}
     <table class="download-widget" cellspacing="2">
         <tbody>
