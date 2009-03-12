@@ -89,7 +89,7 @@ class PasteFileForm(forms.Form):
         return self.cleaned_data['slug']
 
 class PasteLinkForm(forms.Form):
-    text     = forms.URLField(label='URL')
+    text    = forms.URLField(label='URL')
     slug    = forms.CharField(max_length=16, min_length=5, help_text="You may specify the URL slug to use for your paste. Minimum 5 characters.", widget=SlugInput(), required=False)
     public  = forms.BooleanField(required=False, help_text="Allow others to browse and search for this paste.")
     tags    = forms.CharField(required=False, help_text="Tags are seperated with spaces.")
