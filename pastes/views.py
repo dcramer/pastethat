@@ -121,7 +121,8 @@ def new_paste(request, id=None):
             elif form is file_form:
                 content = form.cleaned_data['file'].read()
                 filename = form.cleaned_data['file'].name
-                
+                if not new_paste.title:
+                    new_paste.title = filename
                 if IMAGE_TYPES.search(filename):
                     new_paste.type = PASTE_TYPE_IMAGE
                 else:
