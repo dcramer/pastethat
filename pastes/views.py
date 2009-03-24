@@ -155,7 +155,10 @@ def new_paste(request, id=None):
     }
 
     if text_form is None:
-        text_form = PasteTextForm(initial=initial, prefix="text")
+        text_initial = initial
+        if paste and paste.type == PASTE_TYPE_TEXT:
+            text_initial['text'] = paste.text
+        text_form = PasteTextForm(initial=text_initial, prefix="text")
     if file_form is None:
         file_form = PasteFileForm(initial=initial, prefix="file")
     if link_form is None:
