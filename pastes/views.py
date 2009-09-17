@@ -25,7 +25,8 @@ def index(request):
     return new_paste(request)
 
 def recent_pastes(request):
-    paste_list = Paste.objects.filter(status=1, group=request.group).select_related('author')
+    paste_list = Paste.objects.filter(status=1, group=request.group)\
+            .select_related('author').order_by('-post_date')
     
     context = {
         'PAGE': 'recent',
