@@ -22,7 +22,11 @@
 			{% for paste in paste_list.objects %}
 				<li>
 					<a href="{{ paste.get_absolute_url() }}">{{ paste.get_name()|escape }}</a><small> by {% if paste.author %}<a href="{{ paste.author.get_absolute_url() }}">{{ paste.author.username }}</a>{% else %}Anonymous{% endif %} ({{ paste.post_date|timesince }}; {{ paste.get_type_display()|escape }}{% if paste.syntax %}/{{ paste.syntax.name|escape }}{% endif %})</small><br />
-					{{ parser_cache[1][paste.id] or '' }}
+					{% if paste.type == PASTE_TYPE_TEXT %}
+						{{ parser_cache[1][paste.id] or '' }}
+					{% elif paste.type == PASTE_TYPE_IMAGE %}
+						<img src="{{ paste.file.url }}" alt="" style="max-width:64px;"/>
+					{% endif %}
 				</li>
 			{% endfor %}
 		</ul>
