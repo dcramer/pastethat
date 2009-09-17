@@ -2,3 +2,4 @@
 local_settings.py
 media/thumnbnails/*
 media/files/*
+.DS_Store
