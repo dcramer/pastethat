@@ -36,7 +36,7 @@ SITE_ID = 1
 
 USE_I18N = True
 
-MEDIA_ROOT = '%s/media/' % (BASE_PATH,)
+MEDIA_ROOT = os.path.join(BASE_PATH, 'media')
 
 MEDIA_URL = '%s/media/' % (BASE_URL,)
 
@@ -72,7 +72,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 ROOT_URLCONF = 'pastethat.urls'
 
 TEMPLATE_DIRS = (
-    '%s/templates' % (BASE_PATH,),
+    os.path.join(BASE_PATH, 'templates'),
 )
 
 INSTALLED_APPS = (

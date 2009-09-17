@@ -15,7 +15,7 @@
             highlighted in<div class="dropdown" onmouseover="this.className='dropdown-hover dropdown'" onmouseout="this.className='dropdown'"><div>{{ syntax.name|escape }}</div>
             <ul id="change-syntax">
                 {% for s in syntax_list %}
-                    <li><a href="{{ url('pastes::details', paste.id, s.slug) }}">{{ s.name|escape }}</a></li>
+                    <li><a href="{{ url('pastes.details', paste.id, s.slug) }}">{{ s.name|escape }}</a></li>
                 {% endfor %}
             </ul>
             </div>
@@ -59,9 +59,9 @@
     <img src="{{ paste.file.url }}" alt="preview" style="max-width: 99%;" />
     <div class="share" id="share">
         <h5>Share this Image</h5>
-        <div class="shareRow"><label for="id_share_thumbnail">URL</label><input type="text" id="id_share_thumbnail" onfocus="this.select();" class="text" value="{{ request.build_absolute_uri(url('pastes::download', paste.id)) }}" /></div>
-        <div class="shareRow"><label for="id_share_thumbnail">HTML</label><input type="text" id="id_share_thumbnail" onfocus="this.select();" class="text" value="&lt;a href=&quot;{{ request.build_absolute_uri(url('pastes::details', paste.id)) }}&quot;&gt;&lt;img src=&quot;{{ request.build_absolute_uri(url('pastes::thumbnail', paste.id)) }}&quot; alt=&quot;{{ request.get_name()|escape|escape }}&quot;/&gt;&lt;/a&gt;" /></div>
-        <div class="shareRow"><label for="id_share_markdown">Markdown</label><input type="text" id="id_share_markdown" onfocus="this.select();" class="text" value="[![{{ paste.get_name() }}]({{ request.build_absolute_uri(url('pastes::thumbnail', paste.id)) }})]({{ request.build_absolute_uri(url('pastes::details', paste.id)) }})"/></div>
+        <div class="shareRow"><label for="id_share_thumbnail">URL</label><input type="text" id="id_share_thumbnail" onfocus="this.select();" class="text" value="{{ request.build_absolute_uri(url('pastes.download', paste.id)) }}" /></div>
+        <div class="shareRow"><label for="id_share_thumbnail">HTML</label><input type="text" id="id_share_thumbnail" onfocus="this.select();" class="text" value="&lt;a href=&quot;{{ request.build_absolute_uri(url('pastes.details', paste.id)) }}&quot;&gt;&lt;img src=&quot;{{ request.build_absolute_uri(url('pastes.thumbnail', paste.id)) }}&quot; alt=&quot;{{ request.get_name()|escape|escape }}&quot;/&gt;&lt;/a&gt;" /></div>
+        <div class="shareRow"><label for="id_share_markdown">Markdown</label><input type="text" id="id_share_markdown" onfocus="this.select();" class="text" value="[![{{ paste.get_name() }}]({{ request.build_absolute_uri(url('pastes.thumbnail', paste.id)) }})]({{ request.build_absolute_uri(url('pastes.details', paste.id)) }})"/></div>
     </div>
 {% endif %}
 {% endblock %}

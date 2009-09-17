@@ -63,7 +63,7 @@ def new_paste(request, id=None):
         try:
             paste = Paste.objects.get(pk=id)
         except Paste.DoesNotExist:
-            return HttpResponseRedirect(url('pastes::new'))
+            return HttpResponseRedirect(url('pastes.new'))
         parent = paste.parent or paste
     else:
         parent = paste = None
@@ -175,7 +175,7 @@ def new_paste(request, id=None):
     else:
         PAGE = 'new'
         title = 'New Paste'
-        form_url = url('pastes::new')
+        form_url = url('pastes.new')
     
     context = {
         'PAGE': PAGE,

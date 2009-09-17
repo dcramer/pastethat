@@ -87,6 +87,8 @@ pre {
 #share-buttons li { display: inline; }
 #share-buttons a { margin-left: 3px; border: 1px solid #ddd; padding: 1px; text-indent: -10000px; display: block; float: left; height: 24px; width: 24px; background-repeat: no-repeat; background-position: center center; }
 #share-buttons a:hover { border-color: #aaa; }
+
+.share-twitter a { background-image: url('../images/twitter.gif'); }
 .share-delicious a { background-image: url('../images/delicious.gif'); }
 .share-reddit a { background-image: url('../images/reddit.gif'); }
 .share-yahoo a { background-image: url('../images/yahoo.gif'); }
