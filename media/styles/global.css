@@ -342,3 +342,8 @@ th { text-align: left; }
 .paste-list li {
 	margin-bottom: 10px;
 }
+.paste-list .preview {
+	margin-top: 5px;
+	max-width: 300px;
+	max-height: 64px;
+}
