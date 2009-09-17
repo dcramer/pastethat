@@ -82,6 +82,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'pastethat.pastes',
     'pastethat.utils.template',
+    'pastethat.utils.paginator',
 )
 
 SESSION_ENGINE = 'django.contrib.sessions.backends.file'

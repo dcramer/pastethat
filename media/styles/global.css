@@ -334,3 +334,11 @@ th { text-align: left; }
     background: #e0e0e0;
     font-weight: bold;
 }
+
+.paste-list {
+	padding-left: 5px;
+	list-style-type: none;
+}
+.paste-list li {
+	margin-bottom: 10px;
+}

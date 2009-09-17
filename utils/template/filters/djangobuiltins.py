@@ -10,3 +10,13 @@ register.filter(convert_django_filter(intword), 'intword')
 
 from pastethat.utils import url
 register.object(url)
+
+def timesince():
+    def wrapped(env, context, value):
+        from django.template.defaultfilters import timesince
+        value = (' '.join(timesince(value).split(' ')[0:2])).strip(',')
+        if value == '0 minutes':
+            return 'Just now'
+        return value + ' ago'
+    return wrapped
+register.filter(timesince)

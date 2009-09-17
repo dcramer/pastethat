@@ -7,6 +7,10 @@ import datetime
 import random
 import os.path
 import time
+import cgi
+
+from pygments import highlight, lexers, formatters
+from pygments.util import ClassNotFound
 
 PASTE_TYPE_TEXT = 0
 PASTE_TYPE_FILE = 1
@@ -24,7 +28,7 @@ PASTE_STATUS = (
     (0, 'Private'),
     (1, 'Public')
 )
-RESERVED_SLUGS = ('admin', 'browse', 'users', 'accounts', 'search', 'tags', 'view', 'tag', 'new')
+RESERVED_SLUGS = ('recent', 'admin', 'browse', 'users', 'accounts', 'search', 'tags', 'view', 'tag', 'new')
 
 """
 from pastethat.pastes.models import Syntax
@@ -73,6 +77,7 @@ class Paste(models.Model):
     parent  = models.ForeignKey('self', blank=True, null=True)
     status  = models.IntegerField(choices=PASTE_STATUS, default=0)
     text    = models.TextField(blank=True, null=True)
+    # TODO: add size column, remove need for local files (s3)
     file    = models.FileField(upload_to="files/%Y/%m/%d", blank=True, null=True)
     syntax  = models.ForeignKey(Syntax, null=True, blank=True)
 
@@ -91,6 +96,31 @@ class Paste(models.Model):
     def generate_key(self, length=5):
         letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
         return ''.join(random.choice(letters) for x in xrange(length))
+    
+    def get_parsed(self, syntax=None):
+        if not syntax:
+            syntax = self.syntax
+        if not syntax:
+            return (cgi.escape(self.text), '')
+        lexer = getattr(lexers, syntax.lexer)
+        if lexer:
+            formatter = formatters.HtmlFormatter(cssclass="highlight-%s" % self.id)
+            return (highlight(self.text, lexer(), formatter), formatter.get_style_defs('.highlight-%s' % self.id))
+        else:
+            return (cgi.escape(self.text), '')
+
+    def get_parsed_summary(self, length=255, syntax=None):
+        if not syntax:
+            syntax = self.syntax
+        text = self.text[:length]
+        if not syntax:
+            return (cgi.escape(text), '')
+        lexer = getattr(lexers, syntax.lexer)
+        if lexer:
+            formatter = formatters.HtmlFormatter(cssclass="highlight-%s" % self.id)
+            return (highlight(text, lexer(), formatter), formatter.get_style_defs('.highlight-%s' % self.id))
+        else:
+            return (cgi.escape(text), '')
     
     def save(self):
         super(Paste, self).save()

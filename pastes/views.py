@@ -24,6 +24,15 @@ IMAGE_TYPES = re.compile('(:?jpg|png|gif|jpeg)$', re.I)
 def index(request):
     return new_paste(request)
 
+def recent_pastes(request):
+    paste_list = Paste.objects.filter(status=1, group=request.group).select_related('author')
+    
+    context = {
+        'PAGE': 'recent',
+        'paste_list': paste_list,
+    }
+    return render_to_response('recent-pastes.html', context, request)
+
 def view_paste(request, id, syntax=None):
     try:
         paste = Paste.objects.get(pk=id)
@@ -43,14 +52,7 @@ def view_paste(request, id, syntax=None):
                 return HttpResponseRedirect(paste.get_absolute_url())
         else:
             syntax = paste.syntax
-        if syntax:
-            lexer = getattr(lexers, syntax.lexer)
-            if lexer:
-                formatter = formatters.HtmlFormatter(cssclass="highlight")
-                context['css'] = formatter.get_style_defs('.highlight')
-                context['parsed'] = highlight(paste.text, lexer(), formatter)
-            else:
-                context['parsed'] = paste.text
+        context['parsed'], context['css'] = paste.get_parsed(syntax)
         context['syntax'] = syntax
         context['syntax_list'] = Syntax.objects.all().order_by('name')
 
@@ -98,7 +100,7 @@ def new_paste(request, id=None):
                 id=key,
                 parent=parent,
                 type=paste_type,
-                status=0,
+                status=form.cleaned_data.get('public') and 1 or 0,
                 title=form.cleaned_data.get('title', None),
                 ip=request.META['REMOTE_ADDR'],
                 author=request.user.is_authenticated() and request.user or None,

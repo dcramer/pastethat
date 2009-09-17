@@ -1,16 +1,17 @@
 <div id="footer">
-    <p>Created by <a href="http://www.davidcramer.net/">David Cramer</a> | Powered by <a 
+	<p>Random Pastes: {% for paste in get_random_pastes(request.group) %}<a href="{{ paste.get_absolute_url() }}">{{ paste.get_name()|escape }}</a> {% endfor %}</p>
+	<p>Created by <a href="http://www.davidcramer.net/">David Cramer</a> | Powered by <a 
 href="http://www.djangoproject.org/">Django</a>, <a href="http://www.mysql.org/">MySQL</a>, and <a href="http://pygments.org/">Pygments</a>.</p>
-    {% if DEBUG %}
-        <table style="text-align: left;" cellspacing="1">
-            {% for QUERIES in time_spent, query %}
-                <tr>
-                    <td>{{ time_spent }}s</td>
-                    <td>{{ query|escape }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-    {% endif %}
+	{% if DEBUG %}
+		<table style="text-align: left;" cellspacing="1">
+			{% for QUERIES in time_spent, query %}
+				<tr>
+					<td>{{ time_spent }}s</td>
+					<td>{{ query|escape }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	{% endif %}
 </div>
 <script type="text/javascript">
 var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
