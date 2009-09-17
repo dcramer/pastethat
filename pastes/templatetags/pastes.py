@@ -12,7 +12,8 @@ def get_parser_summary_cache(pastes=[]):
     css, parsed = [], {}
     for paste in pastes:
         l_parsed, l_css = paste.get_parsed_summary()
-        css.append(l_css)
+        if l_css:
+            css.append(l_css)
         parsed[paste.id] = l_parsed
     return '\n'.join(css), parsed
 register.object(get_parser_summary_cache)
