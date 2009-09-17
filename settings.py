@@ -4,6 +4,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
+    ('David Cramer', 'dcramer@localhost'),
     ('David Cramer', 'dcramer@gmail.com'),
 )
 
