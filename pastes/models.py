@@ -101,26 +101,28 @@ class Paste(models.Model):
         if not syntax:
             syntax = self.syntax
         if not syntax:
-            return (cgi.escape(self.text), '')
+            return (cgi.escape(self.text), None)
         lexer = getattr(lexers, syntax.lexer)
         if lexer:
             formatter = formatters.HtmlFormatter(cssclass="highlight-%s" % self.id)
             return (highlight(self.text, lexer(), formatter), formatter.get_style_defs('.highlight-%s' % self.id))
         else:
-            return (cgi.escape(self.text), '')
+            return (cgi.escape(self.text), None)
 
     def get_parsed_summary(self, length=255, syntax=None):
         if not syntax:
             syntax = self.syntax
+        if not self.text:
+            return (None, None)
         text = self.text[:length]
         if not syntax:
-            return (cgi.escape(text), '')
+            return (cgi.escape(text), None)
         lexer = getattr(lexers, syntax.lexer)
         if lexer:
             formatter = formatters.HtmlFormatter(cssclass="highlight-%s" % self.id)
             return (highlight(text, lexer(), formatter), formatter.get_style_defs('.highlight-%s' % self.id))
         else:
-            return (cgi.escape(text), '')
+            return (cgi.escape(text), None)
     
     def save(self):
         super(Paste, self).save()

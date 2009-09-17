@@ -4,7 +4,9 @@
 {% set parser_cache = get_parser_summary_cache(paste_list.objects) %}
 
 {% block header %}
-<style type="text/css">{{ parser_cache[0] }}</style>
+	{% if parser_cache[0] %}
+		<style type="text/css">{{ parser_cache[0] }}</style>
+	{% endif %}
 {% endblock %}
 
 {% set PAGE = 'recent' %}
@@ -20,7 +22,7 @@
 			{% for paste in paste_list.objects %}
 				<li>
 					<a href="{{ paste.get_absolute_url() }}">{{ paste.get_name()|escape }}</a><small> by {% if paste.author %}<a href="{{ paste.author.get_absolute_url() }}">{{ paste.author.username }}</a>{% else %}Anonymous{% endif %} ({{ paste.post_date|timesince }})</small><br />
-					{{ parser_cache[1][paste.id] }}
+					{% parser_cache[1][paste.id] or '' %}
 				</li>
 			{% endfor %}
 		</ul>
