@@ -370,12 +370,11 @@ th { text-align: left; }
 .paste-list .paste-media {
 	margin-left: 10px;
 }
-.paste-list a.paste-media {
+.paste-list .paste-media a {
 	font-size: 0.85em;
 	color: #000;
 }
-.paste-list img.paste-media {
-	margin-top: 5px;
+.paste-list .paste-media img {
 	max-width: 300px;
 	max-height: 64px;
 }
