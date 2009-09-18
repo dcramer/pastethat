@@ -1,5 +1,5 @@
 *.pyc
 local_settings.py
-media/thumnbnails/*
-media/files/*
+/pastethat/media/thumbnails/
+/pastethat/media/files/
 .DS_Store
