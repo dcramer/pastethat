@@ -37,9 +37,9 @@
 					{% if paste.type == PASTE_TYPE_TEXT %}
 						{{ parsed[paste.id] or '' }}
 					{% elif paste.type == PASTE_TYPE_IMAGE %}
-						<img src="{{ paste.file.url }}" alt="" class="preview"/>
+						<img src="{{ paste.file.url }}" alt="" class="paste-media"/>
 					{% elif paste.type == PASTE_TYPE_LINK %}
-						<a href="{{ paste.text }}">{{ paste.text }}</a>
+						<a href="{{ paste.text }}" class="paste-media">{{ paste.text }}</a>
 					{% endif %}
 				</li>
 			{% endfor %}

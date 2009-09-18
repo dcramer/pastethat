@@ -367,7 +367,10 @@ th { text-align: left; }
 .paste-list li {
 	margin-bottom: 10px;
 }
-.paste-list .preview {
+.paste-list a.paste-media {
+	font-size: 0.85em;
+}
+.paste-list img.paste-media {
 	margin-top: 5px;
 	max-width: 300px;
 	max-height: 64px;
