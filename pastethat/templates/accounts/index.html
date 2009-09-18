@@ -1,0 +1,56 @@
+{% extends "bone/bone.html" %}
+
+{% set PAGE = 'account' %}
+
+{% block header %}
+	{% if css %}
+		<style type="text/css">{{ css }}</style>
+	{% endif %}
+{% endblock %}
+
+{% block content_nav %}
+	{% if request.user.is_authenticated() %}
+		{% set links = (
+			(url('accounts'), 'Dashboard'),
+			(url('accounts.pastes'), 'Pastes'),
+			(url('accounts.settings'), 'Settings'),
+			(url('accounts.password'), 'Password'),
+		) %}
+		<ul id="content-nav">
+			{% for link, label in links %}
+				<li{% if request.path == link %} class="active"{% endif %}><a href="{{ link }}">{{ label }}</a></li>
+			{% endfor %}
+			<li class="right"><a href="{{ url('accounts.logout') }}">Logout</a></li>
+		</ul>
+	{% endif %}
+{% endblock %}
+
+{% block content_title %}
+	<div class="title">
+		<h1>{{ TITLE }}</h1>
+	</div>
+{% endblock %}
+
+{% block content %}
+	<p>Hi, {{ request.user.username }}. Would you like to <a href="{{ url('profiles.details', username=request.user.username) }}">view your profile</a>?</p>
+	<br />
+	<h3>Your Recent Pastes</h3>
+	<br/>
+	{% if paste_list %}
+		<ul class="paste-list">
+			{% for paste in paste_list %}
+				<li>
+					<a href="{{ paste.get_absolute_url() }}">{{ paste.get_name()|escape }}</a><small> ({{ paste.post_date|timesince }}; {{ paste.get_type_display()|escape }}{% if paste.syntax %}/{{ paste.syntax.name|escape }}{% endif %})</small><br />
+					{% if paste.type == PASTE_TYPE_TEXT %}
+						{{ parsed[paste.id] or '' }}
+					{% elif paste.type == PASTE_TYPE_IMAGE %}
+						<img src="{{ paste.file.url }}" alt="" class="preview"/>
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>No pastes recorded yet :(</p>
+	{% endif %}
+</div>
+{% endblock %}

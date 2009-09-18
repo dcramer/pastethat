@@ -1,0 +1,11 @@
+{% extends "accounts/index.html" %}
+
+{% block content %}
+	<form method="POST" action="" class="wide-labels">
+		{% if request.GET.get('success') == '1' %}
+			<p class="success">Your account was updated successfully.</p>
+		{% endif %}
+		{{ form|render_form() }}
+		<div class="formRow fButtonInputRow"><input type="submit" name="save" value="Save Changes" /></div>
+	</form>
+{% endblock %}

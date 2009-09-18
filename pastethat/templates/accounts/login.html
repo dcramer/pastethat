@@ -1,0 +1,21 @@
+{% extends "accounts/index.html" %}
+
+{% block content %}
+	<form action="" method="POST">
+		<input type="hidden" name="next" value="{{ next|escape }}"/>
+		<input type="hidden" name="action" value="login"/>
+		{{ login_form|render_form() }}
+		<div class="formRow fButtonInputRow"><input type="submit" value="Login" /> <a href="{{ url('accounts.password.recover') }}" style="margin-left:10px;">Lose your password?</a></div>
+	</form>
+	<br/>
+	<div class="title">
+		<h2>Register a New Account</h2>
+	</div>
+	<p>If you don't have an account yet, you may create one using the form below.</p>
+	<form action="" method="POST">
+		<input type="hidden" name="next" value="{{ next|escape }}"/>
+		<input type="hidden" name="action" value="register"/>
+		{{ register_form|render_form() }}
+		<div class="formRow fButtonInputRow"><input type="submit" value="Register" /></div>
+	</form>
+{% endblock %}

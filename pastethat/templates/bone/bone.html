@@ -1,0 +1,125 @@
+{% set IGB = request.META['HTTP_USER_AGENT'].startswith('EVE-minibrowser/') %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+	<head>
+		<title>{% if TITLE %}{{ TITLE }} | {% elif paste %}{{ paste.get_name()|escape }} | {% endif %}PasteThat</title>
+		{% if not IGB %}
+		<script type="text/javascript">
+		var o = 52; var getEl = function(obj) { return document.getElementById(obj); };
+		function fix()
+		{
+			var el = el = getEl('tab_text');
+			if (el && el.style.display != 'none')
+			{
+				var tx = ('id_text-text'); var cont = getEl('container');
+				var inh = document.documentElement.clientHeight;
+				var newh = inh-cont.offsetHeight-o;
+				if (newh > 0) tx.style.height = (parseInt(tx.offsetHeight)+parseInt(newh))+'px';
+				else if (parseInt(tx.offsetHeight)+newh > 150) tx.style.height = parseInt(tx.offsetHeight)+newh+'px';
+			}
+		}
+		function tab(e, obj)
+		{
+			var sel = obj.getAttribute('container')
+			if (!sel) return;
+			var els = getEl('form_tabs').getElementsByTagName('li');
+			for (var i=0; i<els.length; i++)
+			{
+				var tab = els[i].getAttribute('container');
+				if (sel == tab) { els[i].className = 'active'; getEl('tab_' + tab).style.display = 'block'; }
+				else { els[i].className = ''; getEl('tab_' + tab).style.display = 'none'; }
+			}
+			fix(); return false;
+		}
+		if (getEl('tab_text')) { window.onresize = fix; window.onload = fix; }
+		</script>
+		<link rel="stylesheet" href="{{ MEDIA_URL }}styles/global.css" type="text/css" media="all">
+		{% endif %}
+		{% block header %}{% endblock %}
+	</head>
+	<body>
+		<div id="container">
+			{% if not IGB %}
+				<div id="header">
+					<h1 title="PasteThat"><a href="{{ url('pastes.new') }}">Paste<span>That</span><small>.com</small></a></h1>
+					<h2>Share code, files, images, and links.</h2>
+					{% if paste %}
+						{% set share_url = request.build_absolute_uri(paste.get_absolute_url())|urlencode %}
+						{% set share_title = paste.get_name()|urlencode %}
+					{% else %}
+						{% set share_url = request.build_absolute_uri(url('pastes.new'))|urlencode %}
+						{% set share_title = 'PasteThat' %}
+					{% endif %}
+					<div id="login"></div>
+					<ul id="share-buttons">
+						<li class="share-twitter"><a href="http://twitter.com/home/?status={{ share_url }}%20{{ share_title }}">Twitter</a></li>
+						<li class="share-delicious"><a href="https://secure.del.icio.us/login?url={{ share_url }}&amp;title={{ share_title }}&amp;notes={{ share_title }}&amp;jump=close">Delicious</a></li>
+						<li class="share-reddit"><a href="http://reddit.com/submit?url={{ share_url }}&amp;title={{ share_title }}">Reddit</a></li>
+						<li class="share-yahoo"><a href="https://login.yahoo.com/config/login?.src=bmk2&amp;.intl=us&amp;.done=http%3A%2F%2Fbeta.bookmarks.yahoo.com%2Ftoolbar%2Fsavebm%3Ft%3D{{ share_title }}%26amp%3Bu%3D{{ share_url }}%26amp%3Bopener%3Dbm%26amp%3Bei%3DUTF-8">Yahoo!</a></li>
+						<li class="share-google"><a href="http://www.google.com/bookmarks/mark?op=add&amp;hl=en&amp;zx=jpax8UpAb80&amp;title={{ share_title }}&amp;bkmk={{ share_url }}">Google</a></li>
+						<li class="share-stumbleupon"><a href="http://www.stumbleupon.com/submit?url={{ share_url }}&amp;title={{ share_title }}">StumbleUpon</a></li>
+						<li class="share-digg"><a href="http://digg.com/submit/?url={{ share_url }}">Digg</a></li>
+						<li class="share-furl"><a href="http://www.furl.net/storeIt.jsp?t={{ share_title }}&amp;u={{ share_url }}&amp;c={{ share_title }}">Furl</a></li>
+					</ul>
+				</div>
+				<div id="nav">
+					<ul>
+						{# TODO: This nav stuff needs cleaned up #}
+						<li class="new-paste{% if PAGE == 'new' %} active{% endif %}"><a href="{{ url('pastes.new') }}">New</a></li>
+						{% if paste %}
+							<li class="view-paste{% if PAGE == 'view' %} active{% endif %}"><a href="{{ paste.get_absolute_url() }}">{{ paste.get_name()|truncate(25)|escape }}</a></li>
+							<li class="followup-paste{% if PAGE == 'followup' %} active{% endif %}"><a href="{{ url('pastes.followup', paste.id) }}">Post Follow-up</a></li>
+							{% if paste.children %}
+								<li class="view-followups{% if PAGE == 'children' %} active{% endif %}"><a href="{{ url('pastes.children', paste.id) }}">View Follow-ups ({{ paste.children|intcomma }})</a></li>
+							{% endif %}
+							{% if paste.type != PASTE_TYPE_LINK %}
+								<li class="download-paste"><a href="{{ url('pastes.download', paste.id) }}" onclick="window.open(this.href,'','scrollbars=yes,menubar=no,height=400,width=600,resizable=yes,toolbar=no,location=no,status=no'); return false">Download</a></li>
+							{% endif %}
+						{% elif PAGE == 'profile' and user %}
+							<li class="profile active"><a href="{{ url('profiles.details', username=user.username) }}">{{ user.username }}</a></li>
+						{% elif PAGE not in ('new', 'account', 'recent') and TITLE %}
+							<li class="view-special active"><a href="{{ request.get_full_path() }}">{{ TITLE|truncate(25)|escape }}</a></li>
+						{% endif %}
+						<li class="account{% if PAGE == 'account' %} active{% endif %} right"><a href="{{ url('accounts') }}">Your Account</a></li>
+						<li class="recent-pastes{% if PAGE == 'recent' %} active{% endif %} right"><a href="{{ url('pastes.recent') }}">Recent Pastes</a></li>
+					</ul>
+				</div>
+			{% endif %}
+			<div id="content">
+				{% if request.GET.get('success') == '1' %}
+					<p class="success">Your changes were made successfully.</p>
+				{% endif %}
+				{% block content_title %}{% endblock %}
+				{% block content_nav %}{% endblock %}
+				{% block content %}{% endblock %}
+			</div>
+			{% if not IGB %}
+				<div id="footer">
+					<p>Random Pastes: {% for paste in get_random_pastes(request.group) %}<a href="{{ paste.get_absolute_url() }}">{{ paste.get_name()|escape }}</a> {% endfor %}</p>
+					<p>Created by <a href="http://www.davidcramer.net/">David Cramer</a> | Powered by <a 
+				href="http://www.djangoproject.org/">Django</a>, <a href="http://www.mysql.org/">MySQL</a>, and <a href="http://pygments.org/">Pygments</a>.</p>
+					{% if DEBUG %}
+						<table style="text-align: left;" cellspacing="1">
+							{% for QUERIES in time_spent, query %}
+								<tr>
+									<td>{{ time_spent }}s</td>
+									<td>{{ query|escape }}</td>
+								</tr>
+							{% endfor %}
+						</table>
+					{% endif %}
+				</div>
+				<script type="text/javascript">
+				var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+				document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+				</script>
+				<script type="text/javascript">
+				try {
+				var pageTracker = _gat._getTracker("UA-395936-9");
+				pageTracker._trackPageview();
+				} catch(err) {}</script>
+			{% endif %}
+		</div>
+	</body>
+</html>

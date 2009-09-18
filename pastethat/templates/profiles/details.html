@@ -1,0 +1,49 @@
+{% extends "bone/bone.html" %}
+
+{% set PAGE = 'profile' %}
+
+{% block header %}
+	{% if css %}
+		<style type="text/css">{{ css }}</style>
+	{% endif %}
+{% endblock %}
+
+{% block content_nav %}
+	{% set links = (
+		(url('profiles.details', username=user.username), 'Profile'),
+		(url('profiles.pastes', username=user.username), 'Pastes'),
+	) %}
+	<ul id="content-nav">
+		{% for link, label in links %}
+			<li{% if request.path == link %} class="active"{% endif %}><a href="{{ link }}">{{ label }}</a></li>
+		{% endfor %}
+	</ul>
+{% endblock %}
+
+{% block content_title %}
+	<div class="title">
+		<h1>{{ TITLE }}</h1>
+	</div>
+{% endblock %}
+
+{% block content %}
+	<h3>Recent Pastes</h3>
+	<br/>
+	{% if paste_list %}
+		<ul class="paste-list">
+			{% for paste in paste_list %}
+				<li>
+					<a href="{{ paste.get_absolute_url() }}">{{ paste.get_name()|escape }}</a><small> ({{ paste.post_date|timesince }}; {{ paste.get_type_display()|escape }}{% if paste.syntax %}/{{ paste.syntax.name|escape }}{% endif %})</small><br />
+					{% if paste.type == PASTE_TYPE_TEXT %}
+						{{ parsed[paste.id] or '' }}
+					{% elif paste.type == PASTE_TYPE_IMAGE %}
+						<img src="{{ paste.file.url }}" alt="" class="preview"/>
+					{% endif %}
+				</li>
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p>No pastes recorded yet :(</p>
+	{% endif %}
+</div>
+{% endblock %}

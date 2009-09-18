@@ -1,0 +1,14 @@
+{% extends "account/index.html" %}
+
+{% block content_header %}
+	<div class="box box-alt">
+		<div class="title">
+			<h1>{{ TITLE|escape }}</h1>
+		</div>
+		<p>To recover a lost password, you will need to enter you email address. We will send a confirmation email to this address which allows you to change your password.</p>
+		<form method="POST" action="" class="wide-labels">
+			{{ form|render_form() }}
+			<div class="formRow fButtonInputRow"><input type="submit" name="save" value="Send Email" /></div>
+		</form>
+	</div>
+{% endblock %}
