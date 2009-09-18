@@ -31,7 +31,7 @@ class RegisterForm(forms.Form):
         value = self.cleaned_data.get('email', '')
         if value:
             try:
-                User.objects.get(email__iexact=register_form.cleaned_data['email'])
+                User.objects.get(email__iexact=value)
             except User.DoesNotExist:
                 pass
             else:
