@@ -11,7 +11,7 @@ def details(request, username):
 
     # XXX: Lazy hack for now
     from pastethat.pastes.templatetags.pastes import *
-    paste_list = get_recent_pastes(request.user)
+    paste_list = user.paste_set.filter(status=1).order_by('-post_date')
     css, parsed = get_parser_summary_cache(paste_list)
     TITLE = user.username
     
@@ -26,7 +26,7 @@ def pastes(request, username):
         return HttpResponseRedirect(url('pastes.new'))
 
     context = {
-        'paste_list': user.paste_set.all().order_by('-post_date'),
+        'paste_list': user.paste_set.filter(status=1).order_by('-post_date'),
         'user': user,
         'TITLE': 'Pastes by %s' % (user.username,),
     }
