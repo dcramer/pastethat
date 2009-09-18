@@ -244,7 +244,7 @@ def recover_password(request):
                 'url': request.build_absolute_uri(password_hash.get_absolute_url()),
             })
             data = render_to_string('accounts/recover/emails/recover.txt', context)
-            send_mail('[Nibbits] Password Recovery', data, settings.EMAIL_FROM_ADDRESS, [password_hash.user.email], fail_silently=True)
+            send_mail('[PasteThat] Password Recovery', data, settings.EMAIL_FROM_ADDRESS, [password_hash.user.email], fail_silently=True)
             form = RecoverPasswordForm()
     else:
         form = RecoverPasswordForm()

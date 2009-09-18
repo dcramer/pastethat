@@ -1,4 +1,4 @@
-A password reset was requested for your account ({{ user.username|escape }}) at Nibbits. If you did not authorize this, you may simply ignore this email.
+A password reset was requested for your account ({{ user.username|escape }}) at PasteThat. If you did not authorize this, you may simply ignore this email.
 
 To continue with your password reset, simply follow the link below, and you will be able to change your password.
 
