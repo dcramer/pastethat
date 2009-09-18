@@ -15,7 +15,7 @@
     </thead>
     <tbody>
     {% for child in child_list %}
-        <tr class="{{ loop.cycle 'row1','row2' }}">
+        <tr class="{{ loop.cycle('row1','row2') }}">
             <td>
                 <a href="{{ child.get_absolute_url() }}">{{ child.get_name()|escape }}</a><br />
                 <small>By {% if child.author %}{{ child.author.username }}{% else %}Anonymous{% endif %}</small>
