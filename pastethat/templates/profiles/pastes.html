@@ -21,6 +21,8 @@
 						{{ parser_cache[1][paste.id] or '' }}
 					{% elif paste.type == PASTE_TYPE_IMAGE %}
 						<img src="{{ paste.file.url }}" alt="" class="preview"/>
+					{% elif paste.type == PASTE_TYPE_LINK %}
+						<a href="{{ paste.text }}">{{ paste.text }}</a>
 					{% endif %}
 				</li>
 			{% endfor %}
