@@ -81,7 +81,7 @@
 						{% elif PAGE not in ('new', 'account', 'recent') and TITLE %}
 							<li class="view-special active"><a href="{{ request.get_full_path() }}">{{ TITLE|truncate(25)|escape }}</a></li>
 						{% endif %}
-						<li class="account{% if PAGE == 'account' %} active{% endif %} right"><a href="{{ url('accounts') }}">Your Account</a></li>
+						<li class="account{% if PAGE == 'account' %} active{% endif %} right"><a href="{{ url('accounts') }}">{% if request.user.is_authenticated() %}{{ request.user.username }}{% else %}Login/Register{% endif %}</a></li>
 						<li class="recent-pastes{% if PAGE == 'recent' %} active{% endif %} right"><a href="{{ url('pastes.recent') }}">Recent Pastes</a></li>
 					</ul>
 				</div>
