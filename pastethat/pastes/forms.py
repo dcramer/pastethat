@@ -43,6 +43,29 @@ class GroupedModelChoiceField(forms.ModelChoiceField):
 
     choices = property(_get_choices, forms.ModelChoiceField._set_choices)
 
+class SlugField(forms.CharField):
+    def __init__(self, *args, **kwargs):
+        kwargs.setdefault('min_length', 5)
+        kwargs.setdefault('max_length', 16)
+        kwargs.setdefault('required', False)
+        kwargs.setdefault('widget', SlugInput())
+        kwargs.setdefault('help_text', "You may specify the URL slug to use for your paste. Minimum 5 characters.")
+        super(SlugField, self).__init__(*args, **kwargs)
+        
+    def clean(self, value):
+        if re.search('[^a-zA-Z0-9_-]', value):
+            raise forms.ValidationError('Your slug may only contain a-z, A-Z, 0-9, - and _ characters.')
+        
+        if value in RESERVED_SLUGS:
+            raise forms.ValidationError("You may not use that slug.")
+        try:
+            Paste.objects.get(pk=value)
+        except Paste.DoesNotExist:
+            pass
+        else:
+            raise forms.ValidationError("That slug is already in use.")
+        return value
+
 class SlugInput(forms.widgets.TextInput):
     def render(self, name, value, attrs=None):
         if value is None: value = ''
@@ -52,55 +75,18 @@ class SlugInput(forms.widgets.TextInput):
             final_attrs['value'] = force_unicode(value)
         return mark_safe(u'%s/<input%s />' % (settings.BASE_URL, flatatt(final_attrs)))
 
-class PasteTextForm(forms.Form):
-    syntax  = GroupedModelChoiceField(queryset=Syntax.objects.all().order_by('parent', 'order', 'name'), empty_label='(Automatic)', required=False)
-    text    = forms.CharField(min_length=5, widget=forms.widgets.Textarea())
-    title   = forms.CharField(max_length=64, required=False)
-    slug    = forms.CharField(max_length=16, min_length=5, help_text="You may specify the URL slug to use for your paste. Minimum 5 characters.", widget=SlugInput(), required=False)
+class PasteForm(forms.Form):
+    slug    = SlugField()
     public  = forms.BooleanField(required=False, help_text="Allow others to browse and search for this paste.")
     tags    = forms.CharField(required=False, help_text="Tags are seperated with spaces or commas.")
 
-    def clean_slug(self):
-        if self.cleaned_data['slug'] in RESERVED_SLUGS:
-            raise forms.ValidationError("You may not use that slug.")
-        try:
-            Paste.objects.get(pk=self.cleaned_data['slug'])
-        except Paste.DoesNotExist:
-            pass
-        else:
-            raise forms.ValidationError("That slug is already in use.")
-        return self.cleaned_data['slug']
+class PasteTextForm(PasteForm):
+    syntax  = GroupedModelChoiceField(queryset=Syntax.objects.all().order_by('parent', 'order', 'name'), empty_label='(Automatic)', required=False)
+    text    = forms.CharField(min_length=5, widget=forms.widgets.Textarea())
+    title   = forms.CharField(max_length=64, required=False)
         
-class PasteFileForm(forms.Form):
+class PasteFileForm(PasteForm):
     file    = forms.FileField()
-    slug    = forms.CharField(max_length=16, min_length=5, help_text="You may specify the URL slug to use for your paste. Minimum 5 characters.", widget=SlugInput(), required=False)
-    public  = forms.BooleanField(required=False, help_text="Allow others to browse and search for this paste.")
-    tags    = forms.CharField(required=False, help_text="Tags are seperated with spaces.")
-    
-    def clean_slug(self):
-        if self.cleaned_data['slug'] in RESERVED_SLUGS:
-            raise forms.ValidationError("You may not use that slug.")
-        try:
-            Paste.objects.get(pk=self.cleaned_data['slug'])
-        except Paste.DoesNotExist:
-            pass
-        else:
-            raise forms.ValidationError("That slug is already in use.")
-        return self.cleaned_data['slug']
 
-class PasteLinkForm(forms.Form):
+class PasteLinkForm(PasteForm):
     text    = forms.URLField(label='URL')
-    slug    = forms.CharField(max_length=16, min_length=5, help_text="You may specify the URL slug to use for your paste. Minimum 5 characters.", widget=SlugInput(), required=False)
-    public  = forms.BooleanField(required=False, help_text="Allow others to browse and search for this paste.")
-    tags    = forms.CharField(required=False, help_text="Tags are seperated with spaces.")
-    
-    def clean_slug(self):
-        if self.cleaned_data['slug'] in RESERVED_SLUGS:
-            raise forms.ValidationError("You may not use that slug.")
-        try:
-            Paste.objects.get(pk=self.cleaned_data['slug'])
-        except Paste.DoesNotExist:
-            pass
-        else:
-            raise forms.ValidationError("That slug is already in use.")
-        return self.cleaned_data['slug']
