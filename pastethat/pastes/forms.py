@@ -5,6 +5,7 @@ from django.utils.safestring import mark_safe
 from django.template.defaultfilters import escape
 from django.forms.util import flatatt
 
+import re
 import itertools
 
 from models import Paste, Syntax, RESERVED_SLUGS
