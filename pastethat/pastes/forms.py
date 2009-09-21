@@ -54,6 +54,8 @@ class SlugField(forms.CharField):
         super(SlugField, self).__init__(*args, **kwargs)
         
     def clean(self, value):
+        if not value:
+            return value
         if re.search('[^a-zA-Z0-9_-]', value):
             raise forms.ValidationError('Your slug may only contain a-z, A-Z, 0-9, - and _ characters.')
         
