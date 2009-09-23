@@ -5,6 +5,11 @@
 		<div class="title">
 			<h1>{{ TITLE|escape }}</h1>
 		</div>
+	</div>
+{% endblock %}
+
+{% block content %}
+	<div class="box">
 		<p>We were unable to confirm your identity. Either the link you followed is invalid, or it has expired. You can always <a href="{{ url('accounts.password.recover') }}">try again</a>.</p>
 	</div>
 {% endblock %}
