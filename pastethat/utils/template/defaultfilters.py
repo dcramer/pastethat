@@ -50,7 +50,7 @@ def mediaversion(value):
     """Returns the modified time (as a string) for the media"""
     try:
         fname = os.path.abspath(os.path.join(settings.MEDIA_ROOT, value))
-        if not fname.startswith(settings.BASE_PATH):
+        if not fname.startswith(settings.PROJECT_ROOT):
             raise ValueError("Media must be located within MEDIA_ROOT.")
         return unicode(int(os.stat(fname).st_mtime))
     except OSError:

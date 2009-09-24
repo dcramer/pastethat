@@ -17,7 +17,7 @@ DATABASE_NAME = ''
 DATABASE_USER = ''
 DATABASE_PASSWORD = ''
 
-BASE_PATH = os.path.abspath(os.path.dirname(__file__))
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 BASE_DOMAIN = 'pastethat.com'
 BASE_URL = 'http://www.pastethat.com'
 
@@ -32,7 +32,7 @@ SITE_ID = 1
 
 USE_I18N = True
 
-MEDIA_ROOT = os.path.join(BASE_PATH, 'media')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 
 MEDIA_URL = '%s/media/' % (BASE_URL,)
 
@@ -69,7 +69,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 ROOT_URLCONF = 'pastethat.urls'
 
 TEMPLATE_DIRS = (
-    os.path.join(BASE_PATH, 'templates'),
+    os.path.join(PROJECT_ROOT, 'templates'),
 )
 
 JINJA2_EXTENSIONS = (
