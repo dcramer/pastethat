@@ -242,7 +242,10 @@ def view_thumbnail(request, id):
     try:
         f = file(outfile)
     except IOError:
-        os.makedirs(os.path.dirname(outfile), 0755)
+        try:
+            os.makedirs(os.path.dirname(outfile), 0755)
+        except OSError:
+            pass
         im = PIL.Image.open(paste.file.path)
         im.thumbnail((150, 100))
         im.save(outfile, "JPEG")
