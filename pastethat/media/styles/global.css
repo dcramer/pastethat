@@ -56,6 +56,10 @@ pre {
 	color: #ccc;
 	letter-spacing: 0;
 }
+#header h1 .group {
+	color: #ccc;
+	font-family: Tahoma;
+}
 #header h1 a { z-index: 100; text-decoration: none; display: block; font-weight: normal; }
 #header h2 {
 	color: #aaa;
