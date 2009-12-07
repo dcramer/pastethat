@@ -3,7 +3,7 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
-		<title>{% if TITLE %}{{ TITLE }} | {% elif paste %}{{ paste.get_name()|escape }} | {% endif %}PasteThat</title>
+		<title>{% if TITLE %}{{ TITLE }} | {% elif paste %}{{ paste.get_name()|escape }} | {% endif %}{% if request.group %}{{ request.group.subdomain }}.{% endif %}pastethat.com</title>
 		{% if not IGB %}
 		<script type="text/javascript">
 		var o = 52; var getEl = function(obj) { return document.getElementById(obj); };
@@ -42,7 +42,7 @@
 		<div id="container">
 			{% if not IGB %}
 				<div id="header">
-					<h1 title="PasteThat"><a href="{{ url('pastes.new') }}">Paste<span>That</span><small>.com</small></a></h1>
+					<h1 title="PasteThat"><a href="{{ url('pastes.new') }}">{% if request.group %}<small>{{ request.group.subdomain }}.</small>{% endif %}paste<span>that</span><small>.com</small></a></h1>
 					<h2>Share code, files, images, and links.</h2>
 					{% if paste %}
 						{% set share_url = request.build_absolute_uri(paste.get_absolute_url())|urlencode %}
