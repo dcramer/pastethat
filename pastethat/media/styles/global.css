@@ -59,6 +59,7 @@ pre {
 #header h1 .group {
 	color: #ccc;
 	font-family: Tahoma;
+	font-style: normal;
 }
 #header h1 a { z-index: 100; text-decoration: none; display: block; font-weight: normal; }
 #header h2 {
