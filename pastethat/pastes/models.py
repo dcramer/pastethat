@@ -95,11 +95,11 @@ class Paste(models.Model):
         return self.get_name()
     
     def can_delete(self, request):
-        if request.user.is_authenticated() and not (self.author == request.user or request.user.has_perm('pastes.delete_paste')):
-            return False
+        if request.user.is_authenticated() and (self.author == request.user or request.user.has_perm('pastes.delete_paste')):
+            return True
         elif str(self.id) not in list(request.session.get('pastes', [])):
             return False
-        elif self.post_date < datetime.datetime.now()-datetime.timedelta(days=1) and not request.user.has_perm('pastes.delete_paste'):
+        elif self.post_date < datetime.datetime.now()-datetime.timedelta(days=1):
             return False
         return True
     
