@@ -5,7 +5,9 @@
 {% endblock %}
 
 {% block content %}
-	{% if paste.can_delete(request) %}
+	{% if paste.status == -1 %}
+		<div class="notice">This paste is <strong>Hidden</strong> from public view.</div>
+	{% elif paste.can_delete(request) %}
 		<div class="notice">You can still <a href="{{ url('pastes.delete', paste.id) }}">remove this paste</a> if you need to.</div>
 	{% endif %}
 	<div class="title">
