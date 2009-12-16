@@ -94,6 +94,15 @@ class Paste(models.Model):
     def __unicode__(self):
         return self.get_name()
     
+    def can_delete(self, request):
+        if request.user.is_authenticated() and not (paste.author == request.user or request.user.has_perm('pastes.delete_paste')):
+            return False
+        elif str(paste.id) not in request.session.getlist('pastes'):
+            return False
+        elif paste.post_date < datetime.datetime.now()-datetime.timedelta(days=1) and not request.user.has_perm('pastes.delete_paste'):
+            return False
+        return True
+    
     @staticmethod
     def generate_key(self, length=5):
         letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'

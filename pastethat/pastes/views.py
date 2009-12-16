@@ -59,6 +59,19 @@ def view_paste(request, id, syntax=None):
 
     return render_to_response('pastes/view.html', context, request)
 
+def delete_paste(request, id):
+    try:
+        paste = Paste.objects.get(pk=id)
+        if not paste.can_delete(request):
+            raise Paste.DoesNotExist
+    except Paste.DoesNotExist:
+        return HttpResponseRedirect(url('pastes.new'))
+
+    paste.status = -1
+    paste.save()
+    
+    return HttpResponseRedirect(paste.get_absolute_url())
+    
 def new_paste(request, id=None):
     text_form = file_form = link_form = None
 

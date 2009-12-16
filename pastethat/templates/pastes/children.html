@@ -1,32 +1,32 @@
 {% extends "bone/bone.html" %}
 
 {% block content %}
-<div class="title">
-    <h2>Follow-up's to {{ paste.get_name()|escape }}</h2>
-</div>
-<div class="children">
-<table style="width: 100%" cellspacing="0">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th style="width:120px;">Type</th>
-            <th style="width:180px;" class="tr">Date</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for child in child_list %}
-        <tr class="{{ loop.cycle('row1','row2') }}">
-            <td>
-                <a href="{{ child.get_absolute_url() }}">{{ child.get_name()|escape }}</a><br />
-                <small>By {% if child.author %}{{ child.author.username }}{% else %}Anonymous{% endif %}</small>
-            </td>
-            <td>
-                {{ child.get_type_display() }}
-            </td>
-            <td class="tr">{{ child.post_date|date() }}</td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
-</div>
+	<div class="title">
+		<h2>Follow-up's to {{ paste.get_name()|escape }}</h2>
+	</div>
+	<div class="children">
+		<table style="width: 100%" cellspacing="0">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th style="width:120px;">Type</th>
+					<th style="width:180px;" class="tr">Date</th>
+				</tr>
+			</thead>
+			<tbody>
+			{% for child in child_list %}
+				<tr class="{{ loop.cycle('row1','row2') }}">
+					<td>
+						<a href="{{ child.get_absolute_url() }}">{{ child.get_name()|escape }}</a><br />
+						<small>By {% if child.author %}{{ child.author.username }}{% else %}Anonymous{% endif %}</small>
+					</td>
+					<td>
+						{{ child.get_type_display() }}
+					</td>
+					<td class="tr">{{ child.post_date|date() }}</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+	</div>
 {% endblock %}

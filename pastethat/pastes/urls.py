@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     url(r'^([A-Za-z0-9_-]+)/followup$', views.post_followup, name='pastes.followup'),
     url(r'^([A-Za-z0-9_-]+)/children$', views.view_children, name='pastes.children'),
     url(r'^([A-Za-z0-9_-]+)/edit$', views.edit_paste, name='pastes.edit'),
+    url(r'^([A-Za-z0-9_-]+)/delete$', views.delete_paste, name='pastes.delete'),
     url(r'^([A-Za-z0-9_-]+)/get$', views.download_paste, name='pastes.download'),
     url(r'^([A-Za-z0-9_-]+)\.jpg$', views.view_thumbnail, name='pastes.thumbnail'),
 )
