@@ -382,3 +382,13 @@ th { text-align: left; }
 	max-width: 300px;
 	max-height: 64px;
 }
+
+.notice, .error, .success, .warning {
+	padding: 5px;
+	margin: 10px 0;
+}
+.notice {
+	border-color: #fb2;
+	color: #BC5B1A;
+	background: #F9F3CC;
+}
