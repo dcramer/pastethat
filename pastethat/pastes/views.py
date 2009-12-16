@@ -154,7 +154,7 @@ def new_paste(request, id=None):
                         new_paste.type = PASTE_TYPE_TEXT
                         new_paste.text = content
                 new_paste.file.save(filename, form.cleaned_data['file'])
-                request.session.setdefault('pastes', []).append(str(paste.id))
+                request.session.setdefault('pastes', []).append(str(new_paste.id))
                 request.session.save()
             new_paste.save()
             return HttpResponseRedirect(new_paste.get_absolute_url())
