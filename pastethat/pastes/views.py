@@ -168,7 +168,7 @@ def new_paste(request, id=None):
 
     initial = {
         'parent': parent,
-        'public': True,
+        'public': False,
         'paste': paste,
         'syntax': syntax,
     }
