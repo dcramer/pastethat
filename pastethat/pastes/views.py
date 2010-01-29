@@ -40,6 +40,9 @@ def view_paste(request, id, syntax=None):
     except Paste.DoesNotExist:
         raise Http404("Paste not found")
     
+    if paste.status < 0 and not (request.user.is_superuser or request.user == paste.author):
+        raise Http404("Paste not found")
+    
     context = {
         'PAGE': 'view',
         'paste': paste,
