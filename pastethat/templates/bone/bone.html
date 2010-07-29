@@ -33,7 +33,7 @@
 		}
 		if (getEl('tab_text')) { window.onresize = fix; window.onload = fix; }
 		</script>
-		<link rel="stylesheet" href="{{ MEDIA_URL }}styles/global.css" type="text/css" media="all">
+		<link rel="stylesheet" href="{{ mediaurl('styles/global.css') }}" type="text/css" media="all">
 		{% endif %}
 		{% block header %}{% endblock %}
 	</head>
