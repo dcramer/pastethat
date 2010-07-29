@@ -99,12 +99,12 @@ INSTALLED_APPS = (
 
     'coffin',
     'south',
+    'paging',
 
     'pastethat.accounts',
     'pastethat.pastes',
     'pastethat.profiles',
     'pastethat.utils.template',
-    'pastethat.utils.paginator',
     'pastethat.utils.resolver',
     'pastethat.utils.forms',
 )

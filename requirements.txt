@@ -7,3 +7,4 @@ Fabric==0.9.1
 python-memcached
 Pygments==1.3.1
 PIL
+django-paging==0.2.1
