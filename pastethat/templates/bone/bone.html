@@ -2,7 +2,7 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 	<head>
-		<title>{% if TITLE %}{{ TITLE }} | {% elif paste %}{{ paste.get_name()|escape }} | {% endif %}{% if request.group.subdomain != 'www' %}{{ request.group.subdomain }}.{% endif %}pastethat.com</title>
+		<title>{% if TITLE %}{{ TITLE }} | {% elif paste %}{{ paste.get_name()|escape }} | {% endif %}{% if request and request.group.subdomain != 'www' %}{{ request.group.subdomain }}.{% endif %}pastethat.com</title>
 		{% if not IGB %}
 		<script type="text/javascript">
 		var o = 52; var getEl = function(obj) { return document.getElementById(obj); };
@@ -41,8 +41,10 @@
 		<div id="container">
 			{% if not IGB %}
 				<div id="header">
-					<h1 title="PasteThat"><a href="{{ url('pastes.new') }}">{% if request.group.subdomain != 'www' %}<span class="group">{{ request.group.subdomain }}.</span>{% endif %}paste<span>that</span><small>.com</small></a></h1>
+					<h1 title="PasteThat"><a href="{{ url('pastes.new') }}">{% if request and request.group.subdomain != 'www' %}<span class="group">{{ request.group.subdomain }}.</span>{% endif %}paste<span>that</span><small>.com</small></a></h1>
 					<h2>Share code, files, images, and links.</h2>
+					<div id="login"></div>
+					{% if request %}
 					{% if paste %}
 						{% set share_url = request.build_absolute_uri(paste.get_absolute_url())|urlencode %}
 						{% set share_title = paste.get_name()|urlencode %}
@@ -50,7 +52,6 @@
 						{% set share_url = request.build_absolute_uri(url('pastes.new'))|urlencode %}
 						{% set share_title = 'PasteThat' %}
 					{% endif %}
-					<div id="login"></div>
 					<ul id="share-buttons">
 						<li class="share-twitter"><a href="http://twitter.com/home/?status={{ share_url }}%20{{ share_title }}">Twitter</a></li>
 						<li class="share-delicious"><a href="https://secure.del.icio.us/login?url={{ share_url }}&amp;title={{ share_title }}&amp;notes={{ share_title }}&amp;jump=close">Delicious</a></li>
@@ -61,6 +62,7 @@
 						<li class="share-digg"><a href="http://digg.com/submit/?url={{ share_url }}">Digg</a></li>
 						<li class="share-furl"><a href="http://www.furl.net/storeIt.jsp?t={{ share_title }}&amp;u={{ share_url }}&amp;c={{ share_title }}">Furl</a></li>
 					</ul>
+					{% endif %}
 				</div>
 				<div id="nav">
 					<ul>
@@ -80,13 +82,13 @@
 						{% elif PAGE not in ('new', 'account', 'recent') and TITLE %}
 							<li class="view-special active"><a href="{{ request.get_full_path() }}">{{ TITLE|truncate(25)|escape }}</a></li>
 						{% endif %}
-						<li class="account{% if PAGE == 'account' %} active{% endif %} right"><a href="{{ url('accounts') }}">{% if request.user.is_authenticated() %}{{ request.user.username }}{% else %}Login/Register{% endif %}</a></li>
+						<li class="account{% if PAGE == 'account' %} active{% endif %} right"><a href="{{ url('accounts') }}">{% if request and request.user.is_authenticated() %}{{ request.user.username }}{% else %}Login/Register{% endif %}</a></li>
 						<li class="recent-pastes{% if PAGE == 'recent' %} active{% endif %} right"><a href="{{ url('pastes.recent') }}">Recent Pastes</a></li>
 					</ul>
 				</div>
 			{% endif %}
 			<div id="content">
-				{% if request.GET.get('success') == '1' %}
+				{% if request and request.GET.get('success') == '1' %}
 					<p class="success">Your changes were made successfully.</p>
 				{% endif %}
 				{% block content_title %}{% endblock %}
@@ -95,7 +97,9 @@
 			</div>
 			{% if not IGB %}
 				<div id="footer">
+					{% if request %}
 					<p>Random Pastes: {% for paste in get_random_pastes(request.group) %}<a href="{{ paste.get_absolute_url() }}">{{ paste.get_name()|escape }}</a> {% endfor %}</p>
+					{% endif %}
 					<p>Created by <a href="http://www.davidcramer.net/">David Cramer</a> | Powered by <a 
 				href="http://www.djangoproject.org/">Django</a>, <a href="http://www.mysql.org/">MySQL</a>, and <a href="http://pygments.org/">Pygments</a>.</p>
 					{% if DEBUG %}
