@@ -96,7 +96,10 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+
     'coffin',
+    'south',
+
     'pastethat.accounts',
     'pastethat.pastes',
     'pastethat.profiles',
