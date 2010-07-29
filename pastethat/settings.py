@@ -13,8 +13,8 @@ MANAGERS = ADMINS
 DATABASE_ENGINE = 'mysql'
 DATABASE_HOST = 'localhost'
 DATABASE_PORT = ''
-DATABASE_NAME = ''
-DATABASE_USER = ''
+DATABASE_NAME = 'pastethat'
+DATABASE_USER = 'pastethat'
 DATABASE_PASSWORD = ''
 
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
