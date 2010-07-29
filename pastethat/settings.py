@@ -36,7 +36,7 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 MEDIA_URL = '%s/media/' % (BASE_URL,)
-STATIC_URL = '%s/media/' % (BASE_URL,)
+STATIC_URL = '%s/static/' % (BASE_URL,)
 
 ADMIN_MEDIA_PREFIX = '%s/admin/media/' % (BASE_URL,)
 
