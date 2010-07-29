@@ -49,14 +49,14 @@ import os, os.path
 def mediaversion(value):
     """Returns the modified time (as a string) for the media"""
     try:
-        fname = os.path.abspath(os.path.join(settings.MEDIA_ROOT, value))
+        fname = os.path.abspath(os.path.join(settings.STATIC_ROOT, value))
         if not fname.startswith(settings.PROJECT_ROOT):
-            raise ValueError("Media must be located within MEDIA_ROOT.")
+            raise ValueError("Media must be located within STATIC_ROOT.")
         return unicode(int(os.stat(fname).st_mtime))
     except OSError:
         return 0
 register.object(mediaversion)
 
 def mediaurl(value, arg=None):
-    return "%s%s?%s" % (settings.MEDIA_URL, value, mediaversion(value))
+    return "%s%s?%s" % (settings.STATIC_URL, value, mediaversion(value))
 register.object(mediaurl)

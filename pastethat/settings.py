@@ -33,8 +33,10 @@ SITE_ID = 1
 USE_I18N = True
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'media')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 
 MEDIA_URL = '%s/media/' % (BASE_URL,)
+STATIC_URL = '%s/media/' % (BASE_URL,)
 
 ADMIN_MEDIA_PREFIX = '%s/admin/media/' % (BASE_URL,)
 
