@@ -1,4 +1,4 @@
-Django==1.2.1
+Django==1.11.29
 git+git://github.com/dcramer/coffin.git
 Jinja2==2.5
 MySQL-python==1.2.3
